@@ -12,4 +12,10 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
 
+class OpportunityForm(forms.ModelForm):
+    class Meta:
+        model = Opportunity
+        fields = ['title', 'description', 'organization', 'location', 'start_date', 'end_date', 'requirements']
+
+
 

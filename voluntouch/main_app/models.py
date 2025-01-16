@@ -8,6 +8,8 @@ class Organization(models.Model):
     description = models.TextField(max_length=250)
     contactEmail = models.EmailField(max_length=100)
     contactPhone = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 class Opportunity(models.Model):
     title = models.CharField(max_length=255)
