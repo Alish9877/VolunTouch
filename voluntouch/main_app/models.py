@@ -13,7 +13,7 @@ class Organization(models.Model):
 class Opportunity(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    organization = models.CharField(max_length=255)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -22,3 +22,7 @@ class Opportunity(models.Model):
     def __str__(self):
         return self.title
     
+class Application(models.Model):
+    AppDate = models.DateField()
+    Status = models.CharField(max_length=20)
+    opportunity = models.ForeignKey(Opportunity, on_delete=models.CASCADE)
