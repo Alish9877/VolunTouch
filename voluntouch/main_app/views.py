@@ -3,6 +3,8 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
+from .forms import OpportunityForm
+
 # Create your views here.
 
 def signup(request):
@@ -29,6 +31,16 @@ def about(request):
 def opportunity_list(request):
     opportunities = Opportunity.objects.all()
     return render(request, 'opportunity/list.html', {'opportunities': opportunities})
+
+def opportunity_create(request):
+    if request.method == 'POST':
+        form = OpportunityForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('opportunity_list')
+    else:
+        form = OpportunityForm()
+    return render(request, 'main_app/opportunity/create.html', {'form': form})
 
 def organization_index(request):
     Organizations = Organization.objects.all()
