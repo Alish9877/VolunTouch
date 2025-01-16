@@ -6,9 +6,10 @@ Opportunities
     <h2>Available Opportunities</h2>
     <ul>
         {% for opportunity in opportunities %}
+       
             <li>
                 <ul>
-                    <li>Organization: {{opportunity.organization}}</li>
+                    <li>{{ organization.name }}</li>
                     <li>Title: {{ opportunity.title }}</li>
                     <li>Description: {{ opportunity.description }}</li>
                     <li>Location: {{ opportunity.location }}</li>
@@ -19,6 +20,9 @@ Opportunities
             </li>
         {% empty %}
             <li>No opportunities available at the moment.</li>
-        {% endfor %}
+        
+        
+{% endfor %}
+        <a href="{% url 'opportunity_create' %}">Create New Opportunity</a>
     </ul>
 {% endblock %}

@@ -14,7 +14,6 @@ class Organization(models.Model):
 class Opportunity(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     start_date = models.DateField()
     end_date = models.DateField()
