@@ -12,6 +12,8 @@ class Opportunity(models.Model):
     requirements = models.TextField()
 
     def __str__(self):
-        return self.titleclass Application(models.Model):
+        return self.title
+    
+class Application(models.Model):
     AppDate = models.DateField()
     Status = models.CharField(max_length=20)
