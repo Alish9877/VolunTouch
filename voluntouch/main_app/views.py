@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
 
-
+from .models import Opportunity
 # Create your views here.
 
 def signup(request):
@@ -25,3 +25,10 @@ def home(request):
 def about(request):
     # return HttpResponse("<h1>About the cat collector</h1>")
     return render(request, 'about.html')
+
+def opportunity_list(request):
+    opportunities = Opportunity.objects.all()
+    return render(request, 'opportunity/list.html', {'opportunities': opportunities})
+
+def home(request):
+    return render(request, 'base.html')

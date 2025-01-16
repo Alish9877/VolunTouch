@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+Opportunities
+
+{% block content %}
+    <h2>Available Opportunities</h2>
+    <ul>
+        {% for opportunity in opportunities %}
+            <li>
+                <ul>
+                    <li>Organization: {{opportunity.organization}}</li>
+                    <li>Title: {{ opportunity.title }}</li>
+                    <li>Description: {{ opportunity.description }}</li>
+                    <li>Location: {{ opportunity.location }}</li>
+                    <li>Start Date: {{ opportunity.start_date }}</li>
+                    <li>End Date: {{ opportunity.end_date }}</li>
+                    <li>requirements: {{opportunity.requirements}}</li>
+                </ul>
+            </li>
+        {% empty %}
+            <li>No opportunities available at the moment.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
