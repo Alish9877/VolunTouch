@@ -17,10 +17,16 @@
           </ul>
           <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            <li><a href="{% url 'login' %}">Log in</a></li>
+            {% if user.is_authenticated %}
             <li><a href="/opportunities/">Opportunities</a></li>
             <li><a href="/organizations/">Organization</a></li>
+            <li><form action="{% url 'logout' %}" method="post">{% csrf_token %}
+              <button type="submit">Logout</button>
+            </form></li>
+            {% else %}
+<li><a href="{% url 'signup' %}">Sign Up</a></li>
+<li><a href="{% url 'login' %}">Log in</a></li>
+{% endif %}
           </ul>
         </div>
       </nav>
