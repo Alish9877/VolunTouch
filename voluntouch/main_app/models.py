@@ -46,11 +46,23 @@ class Application(models.Model):
 
 
 class Profile(models.Model):
+    VOLUNTEER = 'volunteer'
+    ORGANIZATION = 'organization'
+    USER_TYPE_CHOICES = [
+        (VOLUNTEER, 'Volunteer'),
+        (ORGANIZATION, 'Organization'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_type = models.CharField(
+        max_length=20,
+        choices=USER_TYPE_CHOICES,
+        default=VOLUNTEER,
+    )
     bio = models.TextField(max_length=300)
-    location = models.CharField(max_length=100) 
+    location = models.CharField(max_length=100)
     skills = models.TextField(max_length=300)
-    interests = models.TextField(max_length=300) 
+    interests = models.TextField(max_length=300)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
