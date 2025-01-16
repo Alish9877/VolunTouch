@@ -23,7 +23,7 @@ def home(request):
     return render(request, 'home.html')
 
 def about(request):
-    # return HttpResponse("<h1>About the cat collector</h1>")
+
     return render(request, 'about.html')
 
 def opportunity_list(request):
