@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
-
+from .models import Organization
 from .models import Opportunity
 # Create your views here.
 
@@ -32,3 +32,8 @@ def opportunity_list(request):
 
 def home(request):
     return render(request, 'base.html')
+def organization_index(request):
+
+    Organizations = Organization.objects.all()
+
+    return render(request, "organizations/index.html", {"organizations": Organizations})

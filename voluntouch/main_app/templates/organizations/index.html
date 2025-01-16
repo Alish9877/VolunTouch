@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Organizations List</h1>
+
+{% for organization in organizations %}
+<div>
+    <div>
+      <div>
+        <div>
+          <span >{{ organization.name }}</span>
+          <p>location: {{ organization.location }}</p>
+          <p>Description: {{ organization.description }}</p>
+          <p>Contact Email: {{ organization.contactEmail }}</p>
+
+          {% if organization.contactPhone > 0 %}
+          <p>Contact Phone: {{ organization.contactPhone }}</p>
+          {% else %}
+          <p>contactPhone: Kitten</p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </a>
+</div>
+{% endfor %} {% endblock %}
