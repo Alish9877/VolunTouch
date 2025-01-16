@@ -40,7 +40,7 @@ def opportunity_create(request):
             return redirect('opportunity_list')
     else:
         form = OpportunityForm()
-    return render(request, 'main_app/opportunity/create.html', {'form': form})
+    return render(request, 'opportunity/create.html', {'form': form})
 
 def organization_index(request):
     Organizations = Organization.objects.all()

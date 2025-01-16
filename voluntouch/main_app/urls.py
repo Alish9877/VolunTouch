@@ -6,6 +6,7 @@ urlpatterns = [
     # path('accounts/login/', views.login, name='login')
     path('about/', views.about, name='about'),
     path('opportunities/', views.opportunity_list, name='opportunity_list'),
+    path('opportunities/create/', views.opportunity_create, name='opportunity_create'),
     path('organizations/', views.organization_index, name="index"),
 
 ]
