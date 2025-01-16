@@ -30,10 +30,6 @@ def opportunity_list(request):
     opportunities = Opportunity.objects.all()
     return render(request, 'opportunity/list.html', {'opportunities': opportunities})
 
-def home(request):
-    return render(request, 'base.html')
 def organization_index(request):
-
     Organizations = Organization.objects.all()
-
     return render(request, "organizations/index.html", {"organizations": Organizations})
