@@ -14,6 +14,13 @@ class Opportunity(models.Model):
     def __str__(self):
         return self.title
     
+class Organization(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    description = models.TextField(max_length=250)
+    contactEmail = models.CharField(max_length=100)
+    contactPhone = models.IntegerField()
+    
 class Application(models.Model):
     AppDate = models.DateField()
     Status = models.CharField(max_length=20)
