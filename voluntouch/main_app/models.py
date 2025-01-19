@@ -8,7 +8,7 @@ class Organization(models.Model):
     description = models.TextField(max_length=250)
     contactEmail = models.CharField(max_length=100)
     contactPhone = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class Opportunity(models.Model):
     title = models.CharField(max_length=255)

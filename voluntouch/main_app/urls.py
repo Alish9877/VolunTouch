@@ -7,5 +7,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('opportunities/', views.opportunity_list, name='opportunity_list'),
     path('organizations/', views.organization_index, name="index"),
-
+    path('organizations/create/', views.OrganizationCreate.as_view(), name='organizations_create'),
+    path('organizations/<int:pk>/update/', views.OrganizationUpdate.as_view(), name='organizations_update'),
+    path('organizations/<int:pk>/delete/', views.OrganizationDelete.as_view(), name='organizations_delete'),
 ]
