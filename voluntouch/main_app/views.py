@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
 from .forms import OpportunityForm
+from django.views.generic.edit import UpdateView
 
 # Create your views here.
 
@@ -45,3 +46,11 @@ def opportunity_create(request):
 def organization_index(request):
     Organizations = Organization.objects.all()
     return render(request, "organizations/index.html", {"organizations": Organizations})
+
+
+
+class OpportunityUpdate(UpdateView):
+    model = Opportunity
+    fields = ['title', 'description', 'organization', 'location', 'start_date', 'end_date', 'requirements']
+    template_name = 'opportunity/update.html'
+    success_url = ('opportunity_list')

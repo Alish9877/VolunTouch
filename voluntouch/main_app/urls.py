@@ -8,5 +8,6 @@ urlpatterns = [
     path('opportunities/', views.opportunity_list, name='opportunity_list'),
     path('opportunities/create/', views.opportunity_create, name='opportunity_create'),
     path('organizations/', views.organization_index, name="index"),
+    path('opportunities/update/<int:pk>/', views.OpportunityUpdate.as_view(), name='opportunity_update'),
 
 ]
