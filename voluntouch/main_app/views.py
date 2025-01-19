@@ -4,6 +4,10 @@ from .forms import SignUpForm
 from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
+from .forms import OpportunityForm
+from django.views.generic.edit import UpdateView, DeleteView
+
+
 # Create your views here.
 
 def signup(request):
@@ -31,6 +35,29 @@ def opportunity_list(request):
     opportunities = Opportunity.objects.all()
     return render(request, 'opportunity/list.html', {'opportunities': opportunities})
 
+def opportunity_create(request):
+    if request.method == 'POST':
+        form = OpportunityForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('opportunity_list')
+    else:
+        form = OpportunityForm()
+    return render(request, 'opportunity/create.html', {'form': form})
+
 def organization_index(request):
     Organizations = Organization.objects.all()
     return render(request, "organizations/index.html", {"organizations": Organizations})
+
+
+
+class OpportunityUpdate(UpdateView):
+    model = Opportunity
+    fields = ['title', 'description','location', 'start_date', 'end_date', 'requirements']
+    success_url = '/opportunities/'
+
+
+class OpportunityDelete(DeleteView):
+    model = Opportunity
+    
+    success_url = '/opportunities/'

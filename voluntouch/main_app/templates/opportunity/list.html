@@ -6,19 +6,25 @@ Opportunities
     <h2>Available Opportunities</h2>
     <ul>
         {% for opportunity in opportunities %}
+       
             <li>
                 <ul>
-                    <li>Organization: {{opportunity.organization}}</li>
+                    <li>{{ organization.name }}</li>
                     <li>Title: {{ opportunity.title }}</li>
                     <li>Description: {{ opportunity.description }}</li>
                     <li>Location: {{ opportunity.location }}</li>
                     <li>Start Date: {{ opportunity.start_date }}</li>
                     <li>End Date: {{ opportunity.end_date }}</li>
                     <li>requirements: {{opportunity.requirements}}</li>
+                    <li><a href="{% url 'opportunity_update' opportunity.id %}">Edit</a></li>
+                    <a href="{% url 'opportunity_delete' opportunity.id %}">Delete</a>
                 </ul>
             </li>
         {% empty %}
             <li>No opportunities available at the moment.</li>
-        {% endfor %}
+        
+        
+{% endfor %}
+        <a href="{% url 'opportunity_create' %}">Create New Opportunity</a>
     </ul>
 {% endblock %}
