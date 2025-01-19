@@ -16,6 +16,7 @@ Opportunities
                     <li>Start Date: {{ opportunity.start_date }}</li>
                     <li>End Date: {{ opportunity.end_date }}</li>
                     <li>requirements: {{opportunity.requirements}}</li>
+                    <li><a href="{% url 'opportunity_update' opportunity.id %}">Edit</a></li>
                 </ul>
             </li>
         {% empty %}

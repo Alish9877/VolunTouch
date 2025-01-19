@@ -6,6 +6,7 @@ from .models import Opportunity
 from .forms import OpportunityForm
 from django.views.generic.edit import UpdateView
 
+
 # Create your views here.
 
 def signup(request):
@@ -51,6 +52,8 @@ def organization_index(request):
 
 class OpportunityUpdate(UpdateView):
     model = Opportunity
-    fields = ['title', 'description', 'organization', 'location', 'start_date', 'end_date', 'requirements']
-    template_name = 'opportunity/update.html'
-    success_url = ('opportunity_list')
+    fields = ['title', 'description','location', 'start_date', 'end_date', 'requirements']
+    success_url = '/opportunities/'
+
+
+    
