@@ -1,11 +1,11 @@
 from django import forms
-# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Opportunity
-from .models import Profile
+# from .models import Profile
 
 
-class SignUpForm(forms.ModelForm):
+class SignUpForm(UserCreationForm):
     VOLUNTEER = 'volunteer'
     ORGANIZATION = 'organization'
     USER_TYPE_CHOICES = [
@@ -14,26 +14,13 @@ class SignUpForm(forms.ModelForm):
     ]
     
     
-    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, widget=forms.RadioSelect)
+    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, widget=forms.RadioSelect , required=True)
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password'] 
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if commit:
-            user.save()
-            profile = Profile.objects.create(user=user, user_type=self.cleaned_data['user_type'])
-
+        fields = ['username', 'email', 'password1' , 'password2' , 'user_type'] 
 
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
         fields = ['title', 'description', 'location', 'start_date', 'end_date', 'requirements']
-
-
-
