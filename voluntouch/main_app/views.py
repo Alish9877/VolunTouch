@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from .forms import CustomUserCreationForm
+from .forms import SignUpForm
 from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
@@ -8,14 +8,14 @@ from .models import Opportunity
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request,user)
             return redirect('index')
         else:
             error_message = 'Invalid signup - please try again later.'
-    form = CustomUserCreationForm()
+    form = SignUpForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
