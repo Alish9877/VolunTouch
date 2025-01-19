@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
 from .forms import OpportunityForm
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 
 
 # Create your views here.
@@ -56,4 +56,7 @@ class OpportunityUpdate(UpdateView):
     success_url = '/opportunities/'
 
 
+class OpportunityDelete(DeleteView):
+    model = Opportunity
     
+    success_url = '/opportunities/'
