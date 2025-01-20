@@ -5,7 +5,9 @@ from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
 from .forms import OpportunityForm
-from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.views.generic.edit import UpdateView, DeleteView
+from .models import Profile
+
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,6 +36,9 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user_type = form.cleaned_data['user_type']
+            Profile.objects.create(user=user, user_type=user_type) 
+            
             login(request,user)
             return redirect('index')
         else:
@@ -51,18 +56,25 @@ def about(request):
 
 
 def opportunity_list(request):
-    opportunities = Opportunity.objects.all()
+    if request.user.profile.user_type == 'organization':
+        opportunities = Opportunity.objects.filter(organization=request.user)  
+    else:
+        opportunities = Opportunity.objects.all()
     return render(request, 'opportunity/list.html', {'opportunities': opportunities})
 
 def opportunity_create(request):
     if request.method == 'POST':
         form = OpportunityForm(request.POST)
         if form.is_valid():
-            form.save()
+            opportunity = form.save(commit=False)
+            opportunity.organization = request.user 
+            opportunity.save()  
             return redirect('opportunity_list')
     else:
         form = OpportunityForm()
+
     return render(request, 'opportunity/create.html', {'form': form})
+
 
 def organization_index(request):
     Organizations = Organization.objects.all()

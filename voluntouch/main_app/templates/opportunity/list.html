@@ -9,15 +9,17 @@ Opportunities
        
             <li>
                 <ul>
-                    <li>{{ organization.name }}</li>
+                    <li>Posted by: {{ opportunity.organization.username }}</li>
                     <li>Title: {{ opportunity.title }}</li>
                     <li>Description: {{ opportunity.description }}</li>
                     <li>Location: {{ opportunity.location }}</li>
                     <li>Start Date: {{ opportunity.start_date }}</li>
                     <li>End Date: {{ opportunity.end_date }}</li>
                     <li>requirements: {{opportunity.requirements}}</li>
+                    {% if request.user.profile.user_type == 'organization' %}
                     <li><a href="{% url 'opportunity_update' opportunity.id %}">Edit</a></li>
                     <a href="{% url 'opportunity_delete' opportunity.id %}">Delete</a>
+                    {% endif %}
                 </ul>
             </li>
         {% empty %}
@@ -25,6 +27,8 @@ Opportunities
         
         
 {% endfor %}
+{% if request.user.profile.user_type == 'organization' %}
         <a href="{% url 'opportunity_create' %}">Create New Opportunity</a>
+        {% endif %}
     </ul>
 {% endblock %}
