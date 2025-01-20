@@ -18,6 +18,9 @@ class Opportunity(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     requirements = models.TextField()
+    organization = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='opportunities'
+    )
 
     def __str__(self):
         return self.title
@@ -63,3 +66,4 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+    
