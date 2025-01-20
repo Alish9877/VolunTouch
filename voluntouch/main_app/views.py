@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from .models import Organization
 from .models import Opportunity
 from .forms import OpportunityForm
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class OrganizationCreate(LoginRequiredMixin, CreateView):
     model = Organization
     fields = ['name', 'location', 'description', 'contactEmail', 'contactPhone']
+    success_url = '/organizations/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
