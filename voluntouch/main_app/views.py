@@ -1,16 +1,36 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, get_object_or_404
 from .forms import SignUpForm
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.http import Http404
 from .models import Organization
-from .models import Opportunity
+from .models import Opportunity, Application
 from .forms import OpportunityForm
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Profile
+from datetime import datetime
 from .models import Application
 
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+class OrganizationCreate(LoginRequiredMixin, CreateView):
+    model = Organization
+    fields = ['name', 'location', 'description', 'contactEmail', 'contactPhone']
+    success_url = '/organizations/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class OrganizationUpdate(LoginRequiredMixin, UpdateView):
+    model = Organization
+    fields = ['location', 'description', 'contactEmail', 'contactPhone']
+    success_url = '/organizations/'
+
+class OrganizationDelete(LoginRequiredMixin, DeleteView):
+    model = Organization
+    success_url = '/organizations/'
 
 def signup(request):
     error_message = ''
@@ -33,8 +53,9 @@ def home(request):
     return render(request, 'home.html')
 
 def about(request):
-    # return HttpResponse("<h1>About the cat collector</h1>")
+
     return render(request, 'about.html')
+
 
 def opportunity_list(request):
     if request.user.profile.user_type == 'organization':
@@ -55,6 +76,23 @@ def opportunity_create(request):
         form = OpportunityForm()
 
     return render(request, 'opportunity/create.html', {'form': form})
+
+
+
+def apply_for_opportunity(request, opportunity_id):
+    try:
+        opportunity = Opportunity.objects.get(id=opportunity_id)
+    except Opportunity.DoesNotExist:
+        raise Http404("Opportunity does not exist")
+    
+    print("opportunity", opportunity)
+    
+    Application.objects.create(
+        user=request.user,
+        opportunity=opportunity,
+        AppDate=datetime.now()
+    )
+    return render(request, 'opportunity/detail.html', {'opportunity': opportunity})
 
 
 def volunteer_applications(request):
