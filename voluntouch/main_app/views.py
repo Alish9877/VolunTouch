@@ -7,7 +7,7 @@ from .models import Opportunity
 from .forms import OpportunityForm
 from django.views.generic.edit import UpdateView, DeleteView
 from .models import Profile
-
+from .models import Application
 
 
 # Create your views here.
@@ -55,6 +55,12 @@ def opportunity_create(request):
         form = OpportunityForm()
 
     return render(request, 'opportunity/create.html', {'form': form})
+
+
+def volunteer_applications(request):
+    
+    applications = Application.objects.filter(user=request.user)
+    return render(request, 'application/volunteer_applications.html', {'applications': applications})
 
 
 def organization_index(request):
