@@ -16,7 +16,11 @@ Opportunities
                     <li>Start Date: {{ opportunity.start_date }}</li>
                     <li>End Date: {{ opportunity.end_date }}</li>
                     <li>requirements: {{opportunity.requirements}}</li>
+                    {% if request.user.profile.user_type == 'volunteer' %}
+                    <a href="{% url 'apply_for_opportunity' opportunity.id %}"><button type="button">Apply Now</button></a>
+                    {% endif %}
                     {% if request.user.profile.user_type == 'organization' %}
+                   
                     <li><a href="{% url 'opportunity_update' opportunity.id %}">Edit</a></li>
                     <a href="{% url 'opportunity_delete' opportunity.id %}">Delete</a>
                     {% endif %}
@@ -29,6 +33,7 @@ Opportunities
 {% endfor %}
 {% if request.user.profile.user_type == 'organization' %}
         <a href="{% url 'opportunity_create' %}">Create New Opportunity</a>
+        
         {% endif %}
     </ul>
 {% endblock %}

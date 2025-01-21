@@ -12,6 +12,10 @@ urlpatterns = [
     path('opportunities/delete/<int:pk>/', views.OpportunityDelete.as_view(), name='opportunity_delete'),
     path('opportunities/create/', views.opportunity_create, name='opportunity_create'),
 
+    path('organizations/create/', views.OrganizationCreate.as_view(), name='organizations_create'),
+    path('organizations/<int:pk>/update/', views.OrganizationUpdate.as_view(), name='organizations_update'),
+    path('organizations/<int:pk>/delete/', views.OrganizationDelete.as_view(), name='organizations_delete'),
+    path('apply/<int:opportunity_id>/', views.apply_for_opportunity, name='apply_for_opportunity'),
     path('profile/', views.profile_index, name='index'),
     path('profile/edit/' , views.edit_profile, name='edit')
 ]

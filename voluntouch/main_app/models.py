@@ -6,10 +6,11 @@ class Organization(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
-    contactEmail = models.EmailField(max_length=100)
+    contactEmail = models.CharField(max_length=100)
     contactPhone = models.IntegerField()
     def __str__(self):
         return self.name
+
 
 class Opportunity(models.Model):
     title = models.CharField(max_length=255)
