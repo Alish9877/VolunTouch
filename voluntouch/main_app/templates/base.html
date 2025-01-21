@@ -20,6 +20,7 @@
             <li><a href="{% url 'about' %}">About</a></li>
             {% if user.is_authenticated %}
             <li><a href="/opportunities/">Opportunities</a></li>
+            <li><a href="/profile/">profile</a></li>
             <li><a href="/organizations/">Organization</a></li>
             <li><form action="{% url 'logout' %}" method="post">{% csrf_token %}
               <button type="submit">Logout</button>
