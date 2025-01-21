@@ -8,11 +8,12 @@ My Applications
     {% if applications %}
         <ul>
             {% for application in applications %}
-                <li>
-                    Opportunity: {{ application.opportunity.title }}
-                    Status: {{ application.Status }}
-                    Applied On: {{ application.AppDate }}
-                </li>
+                  
+                  
+                    <li>Opportunity: {{ application.opportunity.title }}</li>
+                    <li>Status: {{ application.Status }}</li>
+                    <li>Applied On: {{ application.AppDate }}</li>
+                
             {% endfor %}
         </ul>
     {% else %}
