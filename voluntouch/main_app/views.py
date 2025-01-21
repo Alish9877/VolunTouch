@@ -123,7 +123,7 @@ def edit_profile(request):
 
     if request.method == 'POST':
         print("here")
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST,request.FILES, instance=profile)
         print("form", form)
 
         if form.is_valid():
