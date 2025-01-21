@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+Delete Application
+
+{% block content %}
+    <h2>Are you sure you want to delete this Application?</h2>
+    <p>Opportunity: {{application.opportunity}}</p>
+    <p>Status: {{ application.Status }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'volunteer_applications' %}">Cancel</a>
+    </form>
+{% endblock %}

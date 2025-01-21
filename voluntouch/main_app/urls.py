@@ -15,4 +15,5 @@ urlpatterns = [
     path('organizations/<int:pk>/update/', views.OrganizationUpdate.as_view(), name='organizations_update'),
     path('organizations/<int:pk>/delete/', views.OrganizationDelete.as_view(), name='organizations_delete'),
     path('apply/<int:opportunity_id>/', views.apply_for_opportunity, name='apply_for_opportunity'),
+    path('applications/delete/<int:pk>/', views.ApplicationDelete.as_view(), name='application_delete'),
 ]
