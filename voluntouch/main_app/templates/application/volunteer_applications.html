@@ -13,7 +13,7 @@ My Applications
                     <li>Opportunity: {{ application.opportunity.title }}</li>
                     <li>Status: {{ application.Status }}</li>
                     <li>Applied On: {{ application.AppDate }}</li>
-                
+                    <a href="{% url 'application_delete' application.id %}">Delete</a>
             {% endfor %}
         </ul>
     {% else %}
