@@ -21,6 +21,8 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1' , 'password2' , 'user_type'] 
 
+
+
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
