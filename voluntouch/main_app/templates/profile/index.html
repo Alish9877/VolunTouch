@@ -1,0 +1,107 @@
+{% extends 'base.html' %} 
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }}'s Profile</title>
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 36px;
+            color: #007bff;
+        }
+
+        .profile-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #555;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        img {
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-image {
+            text-align: center;
+        }
+    </style> -->
+</head>
+<body>
+    <div class="profile-container">
+        <h1>{{ profile.user.username }}'s Profile</h1>
+
+        <div class="profile-image">
+            {% if profile.image %}
+                {% load static %}
+                <img src="{% static profile.image|cut:'main_app/static/' %}" width="100px" height="100px">
+            {% else %}
+                <p>No profile picture uploaded.</p>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <h3>Bio:</h3>
+            <p>{{ profile.bio }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Skills:</h3>
+            <p>{{ profile.skills }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Location:</h3>
+            <p>{{ profile.location }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Interests:</h3>
+            <p>{{ profile.interests }}</p>
+        </div>
+        <a href="{% url 'edit' %}">Edit Profile</a>
+    </div>
+</body>
+</html>
+{% endblock %}

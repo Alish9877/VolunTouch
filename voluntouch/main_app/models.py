@@ -55,6 +55,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=300)
     location = models.CharField(max_length=100)
     skills = models.TextField(max_length=300)
+    image = models.ImageField(upload_to='main_app/static/uploads/', default="")
     interests = models.TextField(max_length=300)
     def __str__(self):
         return f"{self.user.username}'s Profile"
