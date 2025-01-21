@@ -1,12 +1,14 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, get_object_or_404
 from .forms import SignUpForm
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.http import Http404
 from .models import Organization
-from .models import Opportunity
+from .models import Opportunity, Application
 from .forms import OpportunityForm
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Profile
+from datetime import datetime
 
 
 
@@ -74,6 +76,23 @@ def opportunity_create(request):
         form = OpportunityForm()
 
     return render(request, 'opportunity/create.html', {'form': form})
+
+
+
+def apply_for_opportunity(request, opportunity_id):
+    try:
+        opportunity = Opportunity.objects.get(id=opportunity_id)
+    except Opportunity.DoesNotExist:
+        raise Http404("Opportunity does not exist")
+    
+    print("opportunity", opportunity)
+    
+    Application.objects.create(
+        user=request.user,
+        opportunity=opportunity,
+        AppDate=datetime.now()
+    )
+    return render(request, 'opportunity/detail.html', {'opportunity': opportunity})
 
 
 def organization_index(request):
