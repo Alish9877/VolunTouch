@@ -9,7 +9,7 @@ from .forms import OpportunityForm
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Profile
 from datetime import datetime
-
+from .models import Application
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -93,6 +93,12 @@ def apply_for_opportunity(request, opportunity_id):
         AppDate=datetime.now()
     )
     return render(request, 'opportunity/detail.html', {'opportunity': opportunity})
+
+
+def volunteer_applications(request):
+    
+    applications = Application.objects.filter(user=request.user)
+    return render(request, 'application/volunteer_applications.html', {'applications': applications})
 
 
 def organization_index(request):
