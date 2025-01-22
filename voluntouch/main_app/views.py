@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.http import Http404
 from .models import Organization, Opportunity, Application, Profile
 from .forms import OpportunityForm
+from .forms import ProfileForm
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -101,3 +102,34 @@ class OpportunityUpdate(UpdateView):
 class OpportunityDelete(DeleteView):
     model = Opportunity
     success_url = '/opportunities/'
+
+
+
+def profile_index(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request, "profile/index.html", {"profile": profile})
+
+
+
+def edit_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    print("profile", profile)
+    print("request.method", request.method)
+
+    if request.method == 'POST':
+        print("here")
+        form = ProfileForm(request.POST,request.FILES, instance=profile)
+        print("form", form)
+
+        if form.is_valid():
+            profile.user_id = request.user.id
+            form.save()
+            return redirect('profile') 
+    else:
+        print("else")
+        form = ProfileForm(instance=profile)
+    return render(request, 'profile/edit.html', {'form': form})
+    
+def organization_list(request):
+    organizations = Organization.objects.get(user=request.user)
+    return render(request, "proforganizationsile/list.html", {"organizations": organizations})

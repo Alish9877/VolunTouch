@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }}'s Profile</title>
+
+</head>
+<body>
+    <div class="profile-container">
+        <h1>{{ profile.user.username }}'s Profile</h1>
+
+        <div class="profile-image">
+            {% if profile.image %}
+                {% load static %}
+                <img src="{% static profile.image|cut:'main_app/static/' %}" width="100px" height="100px">
+            {% else %}
+                <p>No profile picture uploaded.</p>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <h3>Bio:</h3>
+            <p>{{ profile.bio }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Skills:</h3>
+            <p>{{ profile.skills }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Location:</h3>
+            <p>{{ profile.location }}</p>
+        </div>
+
+        <div class="profile-info">
+            <h3>Interests:</h3>
+            <p>{{ profile.interests }}</p>
+        </div>
+        <a href="{% url 'edit' %}">Edit Profile</a>
+    </div>
+</body>
+</html>
+{% endblock %}
