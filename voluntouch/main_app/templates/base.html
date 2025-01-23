@@ -10,36 +10,70 @@
   <body>
     <!-- Navbar -->
     <header>
-      <nav class="navbar">
-        <a class="brand" href="/">Voluntouch</a>
-        <ul class="nav-links">
-          <li><a href="{% url 'about' %}">About</a></li>
-          {% if request.user.profile.user_type == 'volunteer' %}
-          <li><a href="{% url 'volunteer_applications' %}">My Applications</a></li>
-          {% endif %}
-          {% if user.is_authenticated %}
-          <li><a href="/opportunities/">Opportunities</a></li>
-          <li><a href="/organizations/">Organization</a></li>
-          <div class="dropdown">
-            <button class="dropbtn">
-              {% if profile.image == null %}
-              {% load static %}
-              <img src="https://www.gravatar.com/avatar/?d=mp" width="30px" height="30px">
-          {% else %}
-          <img src="{% static profile.image|cut:'main_app/static/' %}" width="30px" height="30px">
-          {% endif %}</button>
-            <div class="dropdown-content">
-              <a href="{% url 'profile' %}">Profile</a>
-              <form action="{% url 'logout' %}" method="post" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link p-0">Logout</button>
-              </form>
-            </div>
-          {% else %}
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="{% url 'login' %}">Log in</a></li>
-          {% endif %}
-        </ul>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Voluntouch</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+                {% if request.user.profile.user_type == 'volunteer' %}
+                <a href="{% url 'volunteer_applications' %}">My Applications</a>
+                {% endif %}
+                {% if user.profile.user_type == 'organization' %}
+                <li class="nav-item"><a  class="nav-link" href="{% url 'organization_dashboard' %}">Dashboard</a></li>
+                {% endif %}
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="/opportunities/">Opportunities</a>
+              </li>
+              <li>
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <div class="dropdown">
+                  <button class="dropbtn">
+                    {% if profile.image == null %}
+                    {% load static %}
+                    <img src="https://www.gravatar.com/avatar/?d=mp" width="30px" height="30px">
+                {% else %}
+                <img src="{% static profile.image|cut:'main_app/static/' %}" width="30px" height="30px">
+                {% endif %}</button>
+                  <div class="dropdown-content">
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-link nav-link p-0">Logout</button>
+                    </form>
+                  </div>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log in</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
 

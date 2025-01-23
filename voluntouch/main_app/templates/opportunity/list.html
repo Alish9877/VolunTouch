@@ -6,21 +6,24 @@
         {% for opportunity in opportunities %}
             <div class="opportunity-card">
                 <ul>
-                    <li><strong>Posted by:</strong> {{ opportunity.organization.username }}</li>
-                    <li><strong>Title:</strong> {{ opportunity.title }}</li>
-                    <li><strong>Description:</strong> {{ opportunity.description }}</li>
-                    <li><strong>Location:</strong> {{ opportunity.location }}</li>
-                    <li><strong>Start Date:</strong> {{ opportunity.start_date }}</li>
-                    <li><strong>End Date:</strong> {{ opportunity.end_date }}</li>
-                    <li><strong>Requirements:</strong> {{ opportunity.requirements }}</li>
-                </ul>
-                {% if request.user.profile.user_type == 'volunteer' %}
-                    <a href="{% url 'apply_for_opportunity' opportunity.id %}">
-                        <button type="button">Apply Now</button>
-                    </a>
-                {% endif %}
-                {% if request.user.profile.user_type == 'organization' %}
-                    <a href="{% url 'opportunity_update' opportunity.id %}">Edit</a>
+                    <li>
+                        Posted by: 
+                        <a href="{% url 'organization_detail' opportunity.organization.id %}">
+                            {{ opportunity.organization.name }}
+                        </a>
+                    </li>
+                    <li>Title: {{ opportunity.title }}</li>
+                    <li>Description: {{ opportunity.description }}</li>
+                    <li>Location: {{ opportunity.location }}</li>
+                    <li>Start Date: {{ opportunity.start_date }}</li>
+                    <li>End Date: {{ opportunity.end_date }}</li>
+                    <li>requirements: {{opportunity.requirements}}</li>
+                    {% if request.user.profile.user_type == 'volunteer' %}
+                    <a href="{% url 'apply_for_opportunity' opportunity.id %}"><button type="button">Apply Now</button></a>
+                    {% endif %}
+                    {% if request.user.profile.user_type == 'organization' %}
+                   
+                    <li><a href="{% url 'opportunity_update' opportunity.id %}">Edit</a></li>
                     <a href="{% url 'opportunity_delete' opportunity.id %}">Delete</a>
                 {% endif %}
             </div>
