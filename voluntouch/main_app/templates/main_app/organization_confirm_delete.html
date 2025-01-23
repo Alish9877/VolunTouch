@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Delete Organization</h1>
+<div class="delete-container">
+    <h2>Delete Organization</h2>
+    <h4>Are you sure you want to delete <span class="highlight">{{ object.name }}</span>?</h4>
 
-  <h4>Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?</h4>
-
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'organizations_delete' organization.id %}" class="btn red">Cancel</a>
-  </form>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-danger">Yes, Delete!</button>
+        <a href="{% url 'organizations_list' %}" class="btn-cancel">Cancel</a>
+    </form>
+</div>
 {% endblock %}
