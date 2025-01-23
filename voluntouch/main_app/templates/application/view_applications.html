@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Applications for {{ opportunity.title }}</h1>
+  <ul>
+    {% for application in applications %}
+      <li>
+        {{ application.user.username }} - Status: {{ application.Status }}
+        <a href="{% url 'view_application' application.id %}">View Application</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

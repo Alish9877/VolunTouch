@@ -5,17 +5,25 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     # path('accounts/login/', views.login, name='login'),
     path('about/', views.about, name='about'),
+
     path('opportunities/', views.opportunity_list, name='opportunity_list'),
-    path('organizations/', views.organization_index, name="index"),
     path('opportunities/update/<int:pk>/', views.OpportunityUpdate.as_view(), name='opportunity_update'),
     path('opportunities/delete/<int:pk>/', views.OpportunityDelete.as_view(), name='opportunity_delete'),
     path('opportunities/create/', views.opportunity_create, name='opportunity_create'),
+
+
     path('applications/', views.volunteer_applications, name='volunteer_applications'),
-    path('organizations/create/', views.OrganizationCreate.as_view(), name='organizations_create'),
-    path('organizations/<int:pk>/update/', views.OrganizationUpdate.as_view(), name='organizations_update'),
-    path('organizations/<int:pk>/delete/', views.OrganizationDelete.as_view(), name='organizations_delete'),
     path('apply/<int:opportunity_id>/', views.apply_for_opportunity, name='apply_for_opportunity'),
     path('applications/delete/<int:pk>/', views.ApplicationDelete.as_view(), name='application_delete'),
+    path('view_applications/<int:opportunity_id>/', views.view_applications, name='view_applications'),
+    path('application/<int:application_id>/', views.view_application, name='view_application'),
+    path('change_status/<int:application_id>/', views.change_status, name='change_status'),
+
+
     path('profile/', views.profile_index, name='profile'),
-    path('profile/edit/' , views.edit_profile, name='edit')
+    path('profile/edit/' , views.edit_profile, name='edit'),
+
+    path('dashboard/', views.organization_dashboard, name='organization_dashboard'),
+    path('organization/<int:organization_id>/', views.organization_detail, name='organization_detail'),
+
 ]
