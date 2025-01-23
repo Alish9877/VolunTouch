@@ -9,7 +9,12 @@ Opportunities
        
             <li>
                 <ul>
-                    <li>Posted by: {{ opportunity.organization.username }}</li>
+                    <li>
+                        Posted by: 
+                        <a href="{% url 'organization_detail' opportunity.organization.id %}">
+                            {{ opportunity.organization.name }}
+                        </a>
+                    </li>
                     <li>Title: {{ opportunity.title }}</li>
                     <li>Description: {{ opportunity.description }}</li>
                     <li>Location: {{ opportunity.location }}</li>
@@ -37,3 +42,5 @@ Opportunities
         {% endif %}
     </ul>
 {% endblock %}
+
+i neeed the Posted by link to the page of organization detail

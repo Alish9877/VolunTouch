@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Opportunity
 from .models import Profile
+from .models import Application
 
 
 class SignUpForm(UserCreationForm):
@@ -32,3 +33,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image','bio', 'location' , 'skills' , 'interests' ]
+
+
+class ApplicationStatusForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = ['Status']
