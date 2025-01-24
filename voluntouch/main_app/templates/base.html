@@ -4,139 +4,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link 
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-      rel="stylesheet" 
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-      crossorigin="anonymous"
-    >
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Voluntouch</title>
     <style>
       /* Dropdown Button */
-.dropbtn {
-  color: black;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+      .dropbtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 1rem;
+        padding: 5px;
+      }
+      /* Dropdown Container */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      /* Dropdown Content */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #F1F1F1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 5px;
+      }
+      /* Links inside dropdown */
+      .dropdown-content a,
+      .dropdown-content form {
+        color: black;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+      }
+      /* Hover effect */
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #ddd;
+      }
+      /* Show dropdown on hover */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
-    <title>Voluntouch</title>
   </head>
   <body>
     <!-- Navbar -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container-fluid">
+      <nav class="navbar">
+        <div class="nav-container">
           <a class="navbar-brand" href="/">Voluntouch</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
-                {% if request.user.profile.user_type == 'volunteer' %}
-                <a href="{% url 'volunteer_applications' %}">My Applications</a>
-                {% endif %}
-                {% if user.profile.user_type == 'organization' %}
-                <li class="nav-item"><a  class="nav-link" href="{% url 'organization_dashboard' %}">Dashboard</a></li>
-                {% endif %}
-              </li>
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="/opportunities/">Opportunities</a>
-              </li>
-              <li>
-                </div>
-              </li>
-              {% endif %}
-            </ul>
-            <ul class="navbar-nav">
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <div class="dropdown">
-                  <button class="dropbtn">
-                    {% if profile.image == null %}
-                    {% load static %}
-                    <img src="https://www.gravatar.com/avatar/?d=mp" width="30px" height="30px">
+          <ul class="nav-links">
+            <li><a href="{% url 'about' %}">About</a></li>
+            {% if request.user.profile.user_type == 'volunteer' %}
+            <li><a href="{% url 'volunteer_applications' %}">My Applications</a></li>
+            {% endif %}
+            {% if user.profile.user_type == 'organization' %}
+            <li><a href="{% url 'organization_dashboard' %}">Dashboard</a></li>
+            {% endif %}
+            <li><a href="/opportunities/">Opportunities</a></li>
+          </ul>
+          <ul class="nav-auth">
+            {% if user.is_authenticated %}
+            <li class="dropdown">
+              <button class="dropbtn">
+                {% if profile.image %}
+                <img
+                  src="{% static profile.image|cut:'main_app/static/' %}"
+                  alt="Profile"
+                  width="30px"
+                  height="30px"
+                />
                 {% else %}
-                <img src="{% static profile.image|cut:'main_app/static/' %}" width="30px" height="30px">
-                {% endif %}</button>
-                  <div class="dropdown-content">
-                    <a href="{% url 'profile' %}">Profile</a>
-                    <form action="{% url 'logout' %}" method="post" class="d-inline">
-                      {% csrf_token %}
-                      <button type="submit" class="btn btn-link nav-link p-0">Logout</button>
-                    </form>
-                  </div>
-              </li>
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Log in</a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
+                <img
+                  src="https://www.gravatar.com/avatar/?d=mp"
+                  alt="Default Avatar"
+                  width="30px"
+                  height="30px"
+                />
+                {% endif %}
+              </button>
+              <div class="dropdown-content">
+                <a href="{% url 'profile' %}">Profile</a>
+                <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit">Logout</button>
+                </form>
+              </div>
+            </li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            {% endif %}
+          </ul>
         </div>
       </nav>
     </header>
-
     <!-- Main Content -->
-    <main class="container mt-4">
+    <main>
       {% block content %}
       {% endblock %}
     </main>
-
     <!-- Footer -->
-    <footer class="text-center py-3 bg-light mt-5">
+    <footer>
       <p>&copy; 2025 Volunteer Management</p>
     </footer>
-
-    <script 
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-whXvwErE1Cp0z8iXkBNoZfCvLRDDydG79l3SlhOHbyOE69Sxq6hVpLVlnrD4fFC2" 
-      crossorigin="anonymous">
-    </script>
   </body>
 </html>

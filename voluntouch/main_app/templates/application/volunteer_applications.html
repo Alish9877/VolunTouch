@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
-My Applications
-
 {% block content %}
+<div class="applications-container">
     <h2>My Applications</h2>
 
     {% if applications %}
-        <ul>
+        <div class="applications-grid">
             {% for application in applications %}
-                  
-                  
-                    <li>Opportunity: {{ application.opportunity.title }}</li>
-                    <li>Status: {{ application.Status }}</li>
-                    <li>Applied On: {{ application.AppDate }}</li>
-                    <a href="{% url 'application_delete' application.id %}">Delete</a>
+                <div class="application-card">
+                    <h3>{{ application.opportunity.title }}</h3>
+                    <p><strong>Status:</strong> {{ application.Status }}</p>
+                    <p><strong>Applied On:</strong> {{ application.AppDate }}</p>
+                    <a href="{% url 'application_delete' application.id %}" class="btn btn-danger">Delete Application</a>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
-        <p>You have not applied to any opportunities yet.</p>
+        <p class="no-applications">You have not applied to any opportunities yet.</p>
     {% endif %}
+</div>
 {% endblock %}

@@ -1,14 +1,20 @@
 {% extends "base.html" %}
-
 {% block title %}Organization Details{% endblock %}
-
 {% block content %}
+<div class="organization-details">
     <h1>{{ organization.name }}</h1>
-    <ul>
+    <ul class="details-list">
         <li><strong>Location:</strong> {{ organization.location }}</li>
         <li><strong>Description:</strong> {{ organization.description }}</li>
         <li><strong>Contact Email:</strong> {{ organization.contactEmail }}</li>
         <li><strong>Contact Phone:</strong> {{ organization.contactPhone }}</li>
     </ul>
-    <a href="{% url 'opportunity_list' %}">Back to Opportunities</a>
+    <a href="{% url 'opportunity_list' %}" class="btn-back">Back to Opportunities</a>
+</div>
 {% endblock %}
+
+
+
+
+
+

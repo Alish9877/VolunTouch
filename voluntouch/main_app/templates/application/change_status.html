@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
-
 {% block content %}
-  <h1>Change Application Status for {{ application.user.username }}</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update Status</button>
-  </form>
+<div class="status-update-container">
+    <h1>Change Application Status for {{ application.user.username }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn-update">Update Status</button>
+    </form>
+</div>
 {% endblock %}

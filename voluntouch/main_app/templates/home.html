@@ -1,6 +1,42 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="hero-section">
+  <div class="hero-text">
+    <h1>Welcome to VolunTouch</h1>
+    <p>
+      Connecting passionate volunteers with meaningful opportunities to make a
+      difference.
+    </p>
+    {% if user.is_authenticated %}
+    <a href="/opportunities/" class="btn btn-primary">Get Started</a>
+    {% else %}
+    <a href="{% url 'signup' %}" class="btn btn-primary">Get Started</a>
+    {% endif %}
+  </div>
+</div>
 
-
-{% block content %}
-  <h1>WELCOME</h1>
-  {% endblock %}
+<div class="features-section">
+  <h2>Why Choose VolunTouch?</h2>
+  <div class="features-grid">
+    <div class="feature">
+      <h3>For Volunteers</h3>
+      <p>
+        Find opportunities that match your skills and interests. make an impact.
+      </p>
+    </div>
+    <div class="feature">
+      <h3>For Organizations</h3>
+      <p>
+        Connect with passionate volunteers and find the right people to support
+        your mission.
+      </p>
+    </div>
+    <div class="feature">
+      <h3>Simple and Efficient</h3>
+      <p>
+        Our user-friendly platform makes it easy to browse, apply, and manage
+        opportunities.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
