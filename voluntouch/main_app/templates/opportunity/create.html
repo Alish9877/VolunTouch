@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
-Create Opportunity
-
 {% block content %}
+<div class="form-container">
     <h2>Create a New Opportunity</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Opportunity</button>
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn-submit">Create Opportunity</button>
     </form>
+</div>
 {% endblock %}
+

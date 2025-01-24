@@ -41,7 +41,7 @@ def signup(request):
             user_type = form.cleaned_data['user_type']
             Profile.objects.create(user=user, user_type=user_type)
             login(request, user)
-            return redirect('index')
+            return redirect('home')
         else:
             error_message = 'Invalid signup - please try again later.'
     form = SignUpForm()
@@ -71,16 +71,25 @@ def opportunity_list(request):
 
 @login_required
 def opportunity_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = OpportunityForm(request.POST)
         if form.is_valid():
             opportunity = form.save(commit=False)
-            opportunity.organization = request.user
-            opportunity.save()
-            return redirect('opportunity_list')
+            if request.user.profile.user_type == 'organization':
+                organization = request.user.profile.organization
+                if organization:
+                    opportunity.organization = organization
+                    opportunity.save()
+                    return redirect('opportunity_list')
+                else:
+                    form.add_error(None, "No organization associated with your profile.")
+            else:
+                form.add_error(None, "Only organizations can create opportunities.")
     else:
         form = OpportunityForm()
+
     return render(request, 'opportunity/create.html', {'form': form})
+
 
 
 @login_required

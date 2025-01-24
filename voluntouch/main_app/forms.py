@@ -27,7 +27,7 @@ class SignUpForm(UserCreationForm):
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
-        fields = ['title', 'description', 'location', 'start_date', 'end_date', 'requirements']
+        fields = ['title', 'description', 'location', 'start_date', 'end_date', 'requirements', 'organization']
 
 class ProfileForm(forms.ModelForm):
     class Meta:
