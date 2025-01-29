@@ -5,75 +5,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Voluntouch</title>
+    <title>VolunTouch</title>
+    <style>
+      /* General Styles */
+      
+    </style>
   </head>
   <body>
     <!-- Navbar -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Voluntouch</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
-                {% if request.user.profile.user_type == 'volunteer' %}
-                <a href="{% url 'volunteer_applications' %}">My Applications</a>
-                {% endif %}
-                {% if user.profile.user_type == 'organization' %}
-                <li class="nav-item"><a  class="nav-link" href="{% url 'organization_dashboard' %}">Dashboard</a></li>
-                {% endif %}
-              </li>
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="/opportunities/">Opportunities</a>
-              </li>
-              <li>
-                </div>
-              </li>
-              {% endif %}
-            </ul>
-            <ul class="navbar-nav">
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <div class="dropdown">
-                  <button class="dropbtn">
-                    {% if profile.image == null %}
-                    {% load static %}
-                    <img src="https://www.gravatar.com/avatar/?d=mp" width="30px" height="30px">
-                {% else %}
-                <img src="{% static profile.image|cut:'main_app/static/' %}" width="30px" height="30px">
-                {% endif %}</button>
-                  <div class="dropdown-content">
-                    <a href="{% url 'profile' %}">Profile</a>
-                    <form action="{% url 'logout' %}" method="post" class="d-inline">
-                      {% csrf_token %}
-                      <button type="submit" class="btn btn-link nav-link p-0">Logout</button>
-                    </form>
-                  </div>
-              </li>
+      <nav>
+        <a class="navbar-brand" href="/">VolunTouch</a>
+        <ul class="navbar-nav">
+          <li><a href="{% url 'about' %}">About</a></li>
+          {% if request.user.is_authenticated %}
+            {% if request.user.profile.user_type == 'volunteer' %}
+            <li><a href="{% url 'volunteer_applications' %}">My Applications</a></li>
+            {% elif request.user.profile.user_type == 'organization' %}
+            <li><a href="{% url 'organization_dashboard' %}">Dashboard</a></li>
+            {% endif %}
+            <li><a href="/opportunities/">Opportunities</a></li>
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav">
+          {% if request.user.is_authenticated %}
+          <li class="dropdown">
+            <button class="dropbtn">
+              {% if profile.image %}
+              <img
+                src="{% static profile.image|cut:'main_app/static/' %}"
+                alt="Profile Image"
+              />
               {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Log in</a>
-              </li>
+              <img
+                src="https://www.gravatar.com/avatar/?d=mp"
+                alt="Default Avatar"
+              />
               {% endif %}
-            </ul>
-          </div>
-        </div>
+            </button>
+            <div class="dropdown-content">
+              <a href="{% url 'profile' %}">Profile</a>
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" style="border: none; background: none; cursor: pointer; padding: 0; font-size: 16px; text-align: left;">
+                  Logout
+                </button>
+              </form>
+            </div>
+          </li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log in</a></li>
+          {% endif %}
+        </ul>
       </nav>
     </header>
 
@@ -85,7 +69,7 @@
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2025 Volunteer Management</p>
+      <p>&copy; 2025 VolunTouch. All rights reserved.</p>
     </footer>
   </body>
 </html>
